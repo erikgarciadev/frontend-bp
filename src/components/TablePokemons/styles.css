@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0em 1.5em 0em;
+}
+
+th{
+    border: 2px solid gray;
+    padding: 0.5em;
+}
+
+td{
+    border: 2px solid gray;
+    padding: 0.5em;
+    font-weight: 400;
+}
+
+.wrapper-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.wrapper-center img {
+    object-fit: cover;
+}

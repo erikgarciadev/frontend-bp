@@ -1,0 +1,9 @@
+p{
+    font-weight: bold;
+}
+
+input[type="range"] {
+    cursor: pointer;
+    accent-color: #6659EF ;
+  }
+

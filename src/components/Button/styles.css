@@ -1,0 +1,19 @@
+button{
+    border-radius: 5px;
+    padding: 1em;
+    color: white;
+    font-weight: 600;
+    background-color: #6659EF;
+    border: 0;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+button.disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+}

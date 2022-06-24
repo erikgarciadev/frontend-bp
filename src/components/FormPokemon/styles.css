@@ -1,0 +1,51 @@
+.title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+}
+
+.wrapper-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+form {
+    margin-top: 1em;
+}
+
+.form-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 1.5em;
+    height: 50px;
+}
+
+.form-control label {
+    font-weight: bold;
+}
+
+.input {
+    height: 40px;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.input.required {
+    border: 2px solid red;
+}
+
+.wrapper-inputs {
+    display: flex;
+    gap: 0em;
+    flex-direction: column;
+}
+
+@media (min-width: 700px)  {
+    .wrapper-inputs {
+        flex-direction: row;
+        gap: 2em;
+    }
+}
