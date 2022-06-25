@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Search from "../Icon/Search";
 import "./styles.css";
 
@@ -7,7 +7,7 @@ const InputSearch = ({
   name,
   value = '',
 }: {
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
   value?: string | number | readonly string[] | undefined;
 }) => {

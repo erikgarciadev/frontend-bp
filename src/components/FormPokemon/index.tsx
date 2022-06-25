@@ -1,19 +1,49 @@
-import React, { FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import Button from "../Button";
 import InputRange from "../InputRange";
 import "./styles.css";
+import useForm from "./useForm";
 
 const FormPokemon = ({
-  isEdit = false,
   handleCancel,
+  createPokemon,
+  updatePokemon,
+  data = {
+    id: undefined,
+    name: "",
+    image: "",
+    attack: 0,
+    defense: 0,
+  },
 }: {
-  isEdit?: boolean;
   handleCancel: () => void;
+  createPokemon: (data: any) => void;
+  updatePokemon: (id: number, data: any) => void;
+  data?: any;
 }) => {
+  const { form, handleChange, isDisabledForm, validateForm, errors } =
+    useForm(data);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("prueba");
+    if (!validateForm()) return;
+    if (form.id) {
+      const { id, ...restForm } = form;
+      updatePokemon(form.id, {
+        ...restForm,
+        attack: Number(form.attack),
+        defense: Number(form.defense),
+      });
+    } else {
+      const { id, ...restForm } = form;
+      createPokemon({
+        ...restForm,
+        attack: Number(form.attack),
+        defense: Number(form.defense),
+      });
+    }
   };
+
   return (
     <div
       style={{
@@ -21,39 +51,62 @@ const FormPokemon = ({
         padding: "1em 1.5em",
       }}
     >
-      <p className="title"> {isEdit ? "Editar Pokemon" : "Nuevo Pokemon"}</p>
+      <p className="title">{form.id ? "Editar Pokemon" : "Nuevo Pokemon"}</p>
       <div
         style={{
           display: "flex",
           justifyContent: "center",
         }}
       >
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="wrapper-inputs">
             <div>
               <div className="form-control">
                 <label>Nombre :</label>
-                <input className="input"></input>
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className={`input ${errors.name === "" ? "" : "required"}`}
+                ></input>
               </div>
               <div className="form-control">
                 <label>Imagen :</label>
-                <input className="input required" placeholder="url"></input>
+                <input
+                  name="image"
+                  value={form.image}
+                  className={`input ${errors.image === "" ? "" : "required"}`}
+                  placeholder="url"
+                  onChange={handleChange}
+                ></input>
               </div>
             </div>
             <div>
               <div className="form-control">
                 <label>Ataque:</label>
-                <InputRange min={0} max={100} onChange={() => {}} />
+                <InputRange
+                  name="attack"
+                  value={form.attack}
+                  min={0}
+                  max={100}
+                  onChange={handleChange}
+                />
               </div>
               <div className="form-control">
                 <label>Defensa:</label>
-                <InputRange min={0} max={100} onChange={() => {}} />
+                <InputRange
+                  name="defense"
+                  value={form.defense}
+                  min={0}
+                  max={100}
+                  onChange={handleChange}
+                />
               </div>
             </div>
           </div>
 
           <div className="wrapper-buttons">
-            <Button icon="save" type="submit" disabled>
+            <Button icon="save" type="submit" disabled={isDisabledForm()}>
               Guardar
             </Button>
             <Button icon="close" onClick={handleCancel}>

@@ -1,30 +1,20 @@
 import React from "react";
+import { Pokemon } from "../../interfaces/Pokemon";
 import Pencil from "../Icon/Pencil";
 import Trash from "../Icon/Trash";
 import "./styles.css";
 
-interface Pokemon {
-  id: number;
-  name: string;
-  image: string;
-  attack: number;
-  defense: number;
-}
 
 const TablePokemons = ({
   pokemons = [
-    {
-      id: 1,
-      name: "prueba",
-      attack: 100,
-      defense: 20,
-      image: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/264.png",
-    },
   ],
+  deletePokemon,
+  showUpdateForm
 }: {
   pokemons?: Pokemon[];
+  deletePokemon: (id: number) => void;
+  showUpdateForm : (id: number) => void
 }) => {
-  console.log(pokemons);
   return (
     <table>
       <thead>
@@ -38,14 +28,28 @@ const TablePokemons = ({
       </thead>
       <tbody>
         {pokemons.map((pokemon) => (
-          <TrPokemon pokemon={pokemon} key={pokemon.id} />
+          <TrPokemon
+            deletePokemon={deletePokemon}
+            pokemon={pokemon}
+            key={pokemon.id}
+            showUpdateForm={showUpdateForm}
+          />
         ))}
       </tbody>
     </table>
   );
 };
 
-export const TrPokemon = ({ pokemon }: { pokemon: Pokemon }) => {
+export const TrPokemon = ({
+  pokemon,
+  deletePokemon,
+  showUpdateForm
+}: {
+  pokemon: Pokemon;
+  deletePokemon: (id: number) => void;
+  openForm?: () => void;
+  showUpdateForm : (id: number) => void
+}) => {
   return (
     <tr>
       <td>{pokemon.name}</td>
@@ -62,11 +66,14 @@ export const TrPokemon = ({ pokemon }: { pokemon: Pokemon }) => {
       <td>{pokemon.attack}</td>
       <td>{pokemon.defense}</td>
       <td>
-        <div
-          className="wrapper-center"
-        >
-          <Pencil fill="#6659EF" fontSize={"20px"} />
-          <Trash fill="#6659EF" fontSize={"20px"} />
+        <div className="wrapper-center">
+          <Pencil onClick={() => showUpdateForm(pokemon.id!)} cursor={"pointer"} fill="#6659EF" fontSize={"20px"} />
+          <Trash
+            cursor={"pointer"}
+            onClick={() => deletePokemon(pokemon.id!)}
+            fill="#6659EF"
+            fontSize={"20px"}
+          />
         </div>
       </td>
     </tr>

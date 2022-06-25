@@ -1,4 +1,4 @@
-
+import React from 'react'
 export default function Pencil(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg

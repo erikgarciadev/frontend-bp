@@ -2,11 +2,11 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import React from "react";
 
-import TablePokemons, { TrPokemon } from "..";
+import TablePokemons from "..";
 
 describe("Table Pokemons", () => {
   it("should render", () => {
-    const { container } = render(<TablePokemons pokemons={[]} />);
+    const { container } = render(<TablePokemons showUpdateForm={()=>{}}  deletePokemon={()=> {}} pokemons={[]} />);
 
     const table = container.querySelector("table");
     const tbody = container.querySelector("tbody");
@@ -27,7 +27,7 @@ describe("Table Pokemons", () => {
       defense: 20,
       image: "",
     };
-    const { container } = render(<TablePokemons pokemons={[pokemon]} />);
+    const { container } = render(<TablePokemons showUpdateForm={()=>{}}  deletePokemon={()=> {}} pokemons={[pokemon]} />);
 
     const tbody = container.querySelector("tbody");
     const trs = tbody?.querySelectorAll('tr')

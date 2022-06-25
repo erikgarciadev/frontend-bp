@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import './styles.css'
 
 const InputRange = ({
@@ -8,10 +8,10 @@ const InputRange = ({
   onChange,
   value,
 }: {
-  min: number;
-  max: number;
+  min?: number;
+  max?: number;
   name?: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value?: string | number | readonly string[] | undefined;
 }) => {
   return (
